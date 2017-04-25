@@ -3,7 +3,8 @@
   "name": "@jupyterlab/application-dev",
   "scripts": {
     "build": "webpack",
-    "update:static": "node update-static.js && cd static && npm install && npm update && npm run build"
+    "build:static": "node build-static.js && cd static && npm install && npm update && npm run build",
+    "update:static": "node update-static.js && npm run build:static"
   },
   "dependencies": {
     "@jupyterlab/about-extension": "^0.3.1",
