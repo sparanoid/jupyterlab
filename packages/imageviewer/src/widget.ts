@@ -14,7 +14,7 @@ import {
 } from '@jupyterlab/docregistry';
 
 /**
- * The class name added to a imagewidget.
+ * The class name added to a imageviewer.
  */
 const IMAGE_CLASS = 'jp-ImageViewer';
 

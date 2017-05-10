@@ -15,7 +15,7 @@ import {
 
 import {
   ImageViewer, ImageViewerFactory, IImageTracker
-} from '@jupyterlab/imagewidget';
+} from '@jupyterlab/imageviewer';
 
 
 /**
@@ -23,13 +23,13 @@ import {
  */
 namespace CommandIDs {
   export
-  const zoomIn = 'imagewidget:zoom-in';
+  const zoomIn = 'imageviewer:zoom-in';
 
   export
-  const zoomOut = 'imagewidget:zoom-out';
+  const zoomOut = 'imageviewer:zoom-out';
 
   export
-  const resetZoom = 'imagewidget:reset-zoom';
+  const resetZoom = 'imageviewer:reset-zoom';
 };
 
 
