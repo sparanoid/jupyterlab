@@ -11,7 +11,7 @@ import {
 
 import {
   CSVViewer, CSVViewerFactory
-} from '@jupyterlab/csvwidget';
+} from '@jupyterlab/csvviewer';
 
 import {
   IDocumentRegistry
@@ -51,7 +51,7 @@ function activate(app: JupyterLab, registry: IDocumentRegistry, restorer: ILayou
     defaultFor: ['.csv']
   });
   const tracker = new InstanceTracker<CSVViewer>({
-    namespace: 'csvwidget',
+    namespace: 'csvviewer',
     shell: app.shell
   });
 

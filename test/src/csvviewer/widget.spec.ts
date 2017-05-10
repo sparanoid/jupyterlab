@@ -13,11 +13,11 @@ import {
 
 import {
   CSVModel
-} from '@jupyterlab/csvwidget';
+} from '@jupyterlab/csvviewer';
 
 import {
   CSVViewer
-} from '@jupyterlab/csvwidget';
+} from '@jupyterlab/csvviewer';
 
 import {
   Context, DocumentRegistry, TextModelFactory
@@ -36,7 +36,7 @@ function createContext(): Context<DocumentRegistry.IModel> {
 }
 
 
-describe('csvwidget/widget', () => {
+describe('csvviewer/widget', () => {
 
   const context = createContext();
 

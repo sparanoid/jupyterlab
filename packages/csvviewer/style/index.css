@@ -5,7 +5,7 @@
 
 
 :root {
-  --jp-private-csvwidget-toolbar-height: 24px;
+  --jp-private-csvviewer-toolbar-height: 24px;
 }
 
 .jp-CSVViewer {
@@ -20,14 +20,14 @@
     flex-direction: row;
     border-bottom: var(--jp-border-width) solid var(--jp-border-color1);
     /* Add the border width because this is border-box sized */
-    height: calc(var(--jp-private-csvwidget-toolbar-height) + var(--jp-border-width));
+    height: calc(var(--jp-private-csvviewer-toolbar-height) + var(--jp-border-width));
     background: var(--jp-layout-color1);
 }
 
 .jp-CSVViewer-toolbar span {
     color: var(--jp-ui-font-color1);
     font-size: var(--jp-ui-font-size1);
-    line-height: var(--jp-private-csvwidget-toolbar-height);
+    line-height: var(--jp-private-csvviewer-toolbar-height);
     padding-left: 8px;
     padding-right: 8px;
 }
