@@ -19,7 +19,7 @@ import {
 
 import {
   MarkdownViewer, MarkdownViewerFactory
-} from '@jupyterlab/markdownwidget';
+} from '@jupyterlab/markdownviewer';
 
 
 /**
