@@ -14,8 +14,8 @@ import {
 } from '@jupyterlab/docregistry';
 
 import {
-  ImageWidget, ImageWidgetFactory, IImageTracker
-} from '@jupyterlab/imagewidget';
+  ImageViewer, ImageViewerFactory, IImageTracker
+} from '@jupyterlab/imageviewer';
 
 
 /**
@@ -23,13 +23,13 @@ import {
  */
 namespace CommandIDs {
   export
-  const zoomIn = 'imagewidget:zoom-in';
+  const zoomIn = 'imageviewer:zoom-in';
 
   export
-  const zoomOut = 'imagewidget:zoom-out';
+  const zoomOut = 'imageviewer:zoom-out';
 
   export
-  const resetZoom = 'imagewidget:reset-zoom';
+  const resetZoom = 'imageviewer:reset-zoom';
 };
 
 
@@ -67,14 +67,14 @@ export default plugin;
  */
 function activate(app: JupyterLab, registry: IDocumentRegistry, palette: ICommandPalette, restorer: ILayoutRestorer): IImageTracker {
   const namespace = 'image-widget';
-  const factory = new ImageWidgetFactory({
+  const factory = new ImageViewerFactory({
     name: FACTORY,
     modelName: 'base64',
     fileExtensions: EXTENSIONS,
     defaultFor: EXTENSIONS
   });
   const { shell } = app;
-  const tracker = new InstanceTracker<ImageWidget>({ namespace, shell });
+  const tracker = new InstanceTracker<ImageViewer>({ namespace, shell });
 
   // Handle state restoration.
   restorer.restore(tracker, {

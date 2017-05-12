@@ -18,8 +18,8 @@ import {
 } from '@jupyterlab/rendermime';
 
 import {
-  MarkdownWidget, MarkdownWidgetFactory
-} from '@jupyterlab/markdownwidget';
+  MarkdownViewer, MarkdownViewerFactory
+} from '@jupyterlab/markdownviewer';
 
 
 /**
@@ -48,14 +48,14 @@ const plugin: JupyterLabPlugin<void> = {
  * Activate the markdown plugin.
  */
 function activate(app: JupyterLab, registry: IDocumentRegistry, rendermime: IRenderMime, restorer: ILayoutRestorer) {
-    const factory = new MarkdownWidgetFactory({
+    const factory = new MarkdownViewerFactory({
       name: FACTORY,
       fileExtensions: ['.md'],
       rendermime
     });
     const shell = app.shell;
     const namespace = 'rendered-markdown';
-    const tracker = new InstanceTracker<MarkdownWidget>({ namespace, shell });
+    const tracker = new InstanceTracker<MarkdownViewer>({ namespace, shell });
 
     // Handle state restoration.
     restorer.restore(tracker, {
