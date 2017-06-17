@@ -1,0 +1,27 @@
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Distributed under the terms of the Modified BSD License.
+|----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+| Placeholder
+|----------------------------------------------------------------------------*/
+
+.jp-Placeholder {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+.jp-Placeholder-prompt {
+  box-sizing: border-box;
+}
+
+.jp-Placeholder-content {
+  flex: 1 1 auto;
+  border: var(--jp-border-width) solid var(--jp-cell-editor-border-color);
+  background: var(--jp-cell-editor-background);
+  height: 16px;
+  box-sizing: border-box;
+}
