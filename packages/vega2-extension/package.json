@@ -1,12 +1,13 @@
 {
-  "name": "@jupyterlab/vega",
-  "version": "0.7.0",
-  "description": "JupyterLab - Vega",
+  "name": "@jupyterlab/vega2-extension",
+  "version": "0.8.1",
+  "description": "JupyterLab - Vega 2 Mime Renderer Extension",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/*.d.ts",
-    "lib/*.js"
+    "lib/*.js",
+    "style/*.css"
   ],
   "directories": {
     "lib": "lib/"
@@ -15,7 +16,7 @@
     "mimeExtension": true
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^0.1.0",
+    "@jupyterlab/rendermime-interfaces": "^0.2.0",
     "@phosphor/coreutils": "^1.2.0",
     "@phosphor/widgets": "^1.3.0",
     "d3": "3.5.17",
