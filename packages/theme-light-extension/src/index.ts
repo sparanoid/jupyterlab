@@ -11,20 +11,20 @@ import {
 
 
 const plugin: JupyterLabPlugin<void> = {
-    id: 'theme-light-extension',
-    requires: [IThemeManager],
-    activate: function(app: JupyterLab, manager: IThemeManager) {
-        manager.register({
-            name: 'JupyterLab Light',
-            load: function() {
-                return Promise.resolve(['./lab/api/themes/jupyterlab-theme-light-extension/style/index.css']);
-            },
-            unload: function() {
-                return Promise.resolve(void 0);
-            }
-        });
-    },
-    autoStart: true
+  id: 'theme-light-extension',
+  requires: [IThemeManager],
+  activate: function(app: JupyterLab, manager: IThemeManager) {
+    manager.register({
+      name: 'JupyterLab Light',
+      load: function() {
+        return manager.loadCSS('./lab/api/themes/jupyterlab-theme-light-extension/style/index.css');
+      },
+      unload: function() {
+        return Promise.resolve(void 0);
+      }
+    });
+  },
+  autoStart: true
 };
 
 
