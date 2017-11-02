@@ -47,17 +47,17 @@ function handlePackage(packagePath) {
   // Read in the package.json.
   var packagePath = path.join(packagePath, 'package.json');
   try {
-    var package = require(packagePath);
+    var data = require(packagePath);
   } catch (e) {
     console.log('Skipping package ' + packagePath);
     return;
   }
 
   // Update dependencies as appropriate.
-  if (target in package['dependencies']) {
-    package['dependencies'][target] = specifier;
-  } else if (target in package['devDependencies']) {
-    package['devDependencies'][target] = specifier;
+  if (target in data['dependencies']) {
+    data['dependencies'][target] = specifier;
+  } else if (target in data['devDependencies']) {
+    data['devDependencies'][target] = specifier;
   }
 
   // Write the file back to disk.
