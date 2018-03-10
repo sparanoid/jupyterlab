@@ -4,13 +4,10 @@
 import expect = require('expect.js');
 
 import {
-  parseDSVNoQuotes
+  parseDSV
 } from '@jupyterlab/csvviewer';
 
-// TODO: Get this working with the noquotes processor. There are plenty of errors still.
-let parseDSV = parseDSVNoQuotes;
-
-describe.only('csvviewer/parse', () => {
+describe('csvviewer/parse', () => {
 
   describe('parseDSV', () => {
 
@@ -109,7 +106,7 @@ describe.only('csvviewer/parse', () => {
       expect(results.offsets).to.eql([8, 10, 12, 14]);
     });
 
-    it.only('adjusts columns to match first row by default', () => {
+    it('adjusts columns to match first row by default', () => {
       let data = `a,b,c,d\n0,\n1,2,3,4,5,6`;
       let options = {data, rowDelimiter: '\n'};
       let results;
@@ -163,7 +160,7 @@ describe.only('csvviewer/parse', () => {
 
       expect(results.nrows).to.eql(3);
       expect(results.ncols).to.eql(5);
-      expect(results.offsets).to.eql([0, 2, 4, 6, 7, 9, 11, 11, 11, 11, 13, 15, 17, 19, 21]);
+      expect(results.offsets).to.eql([0, 2, 4, 6, 7, 8, 10, 10, 10, 10, 11, 13, 15, 17, 19]);
     });
 
     it('adjusts columns to match ncols with CRLF row delimiter', () => {
