@@ -11,11 +11,11 @@ import { toArray } from '@phosphor/algorithm';
 
 import { Signal } from '@phosphor/signaling';
 
-import { ServerConnection } from '../../../lib/serverconnection';
+import { ServerConnection } from '../../../src/serverconnection';
 
-import { Kernel, KernelMessage } from '../../../lib/kernel';
+import { Kernel, KernelMessage } from '../../../src/kernel';
 
-import { Session } from '../../../lib/session';
+import { Session } from '../../../src/session';
 
 import {
   expectFailure,
@@ -55,7 +55,7 @@ describe('session', () => {
   let session: Session.ISession;
   let defaultSession: Session.ISession;
 
-  before(async () => {
+  beforeAll(async () => {
     defaultSession = await startNew();
     await defaultSession.kernel.ready;
   });
@@ -67,7 +67,7 @@ describe('session', () => {
     }
   });
 
-  after(async () => {
+  afterAll(async () => {
     await defaultSession.kernel.ready;
     await defaultSession.shutdown();
   });
@@ -206,7 +206,7 @@ describe('session', () => {
   });
 
   describe('Session.ISession', () => {
-    context('#terminated', () => {
+    describe('#terminated', () => {
       it('should emit when the session is shut down', async () => {
         let called = false;
         session = await startNew();
@@ -220,7 +220,7 @@ describe('session', () => {
       });
     });
 
-    context('#kernelChanged', () => {
+    describe('#kernelChanged', () => {
       it('should emit when the kernel changes', async () => {
         let called: Session.IKernelChangedArgs | null = null;
         const object = {};
@@ -243,7 +243,7 @@ describe('session', () => {
       });
     });
 
-    context('#statusChanged', () => {
+    describe('#statusChanged', () => {
       it('should emit when the kernel status changes', async () => {
         let called = false;
         defaultSession.statusChanged.connect((s, status) => {
@@ -256,7 +256,7 @@ describe('session', () => {
       });
     });
 
-    context('#iopubMessage', () => {
+    describe('#iopubMessage', () => {
       it('should be emitted for an iopub message', async () => {
         let called = false;
         defaultSession.iopubMessage.connect((s, msg) => {
@@ -269,7 +269,7 @@ describe('session', () => {
       });
     });
 
-    context('#unhandledMessage', () => {
+    describe('#unhandledMessage', () => {
       it('should be emitted for an unhandled message', async () => {
         const tester = new SessionTester();
         const session = await tester.startSession();
@@ -292,7 +292,7 @@ describe('session', () => {
       });
     });
 
-    context('#propertyChanged', () => {
+    describe('#propertyChanged', () => {
       it('should be emitted when the session path changes', async () => {
         const newPath = UUID.uuid4();
         let called = false;
@@ -311,31 +311,31 @@ describe('session', () => {
       });
     });
 
-    context('#id', () => {
+    describe('#id', () => {
       it('should be a string', () => {
         expect(typeof defaultSession.id).to.equal('string');
       });
     });
 
-    context('#path', () => {
+    describe('#path', () => {
       it('should be a string', () => {
         expect(typeof defaultSession.path).to.equal('string');
       });
     });
 
-    context('#name', () => {
+    describe('#name', () => {
       it('should be a string', () => {
         expect(typeof defaultSession.name).to.equal('string');
       });
     });
 
-    context('#type', () => {
+    describe('#type', () => {
       it('should be a string', () => {
         expect(typeof defaultSession.name).to.equal('string');
       });
     });
 
-    context('#model', () => {
+    describe('#model', () => {
       it('should be an IModel', () => {
         const model = defaultSession.model;
         expect(typeof model.id).to.equal('string');
@@ -345,19 +345,19 @@ describe('session', () => {
       });
     });
 
-    context('#kernel', () => {
+    describe('#kernel', () => {
       it('should be an IKernel object', () => {
         expect(typeof defaultSession.kernel.id).to.equal('string');
       });
     });
 
-    context('#kernel', () => {
+    describe('#kernel', () => {
       it('should be a delegate to the kernel status', () => {
         expect(defaultSession.status).to.equal(defaultSession.kernel.status);
       });
     });
 
-    context('#serverSettings', () => {
+    describe('#serverSettings', () => {
       it('should be the serverSettings', () => {
         expect(defaultSession.serverSettings.baseUrl).to.equal(
           PageConfig.getBaseUrl()
@@ -365,7 +365,7 @@ describe('session', () => {
       });
     });
 
-    context('#isDisposed', () => {
+    describe('#isDisposed', () => {
       it('should be true after we dispose of the session', () => {
         const session = Session.connectTo(defaultSession.model);
         expect(session.isDisposed).to.equal(false);
@@ -383,7 +383,7 @@ describe('session', () => {
       });
     });
 
-    context('#dispose()', () => {
+    describe('#dispose()', () => {
       it('should dispose of the resources held by the session', () => {
         const session = Session.connectTo(defaultSession.model);
         session.dispose();
@@ -406,7 +406,7 @@ describe('session', () => {
       });
     });
 
-    context('#setPath()', () => {
+    describe('#setPath()', () => {
       it('should set the path of the session', async () => {
         const newPath = UUID.uuid4();
         await defaultSession.setPath(newPath);
@@ -436,7 +436,7 @@ describe('session', () => {
       });
     });
 
-    context('#setType()', () => {
+    describe('#setType()', () => {
       it('should set the type of the session', async () => {
         const type = UUID.uuid4();
         await defaultSession.setType(type);
@@ -466,7 +466,7 @@ describe('session', () => {
       });
     });
 
-    context('#setName()', () => {
+    describe('#setName()', () => {
       it('should set the name of the session', async () => {
         const name = UUID.uuid4();
         await defaultSession.setName(name);
@@ -496,7 +496,7 @@ describe('session', () => {
       });
     });
 
-    context('#changeKernel()', () => {
+    describe('#changeKernel()', () => {
       it('should create a new kernel with the new name', async () => {
         session = await startNew();
         const previous = session.kernel;
@@ -538,7 +538,7 @@ describe('session', () => {
       });
     });
 
-    context('#shutdown()', () => {
+    describe('#shutdown()', () => {
       it('should shut down properly', async () => {
         session = await startNew();
         await session.shutdown();
