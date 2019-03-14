@@ -22,10 +22,7 @@
       "path": "../rendermime"
     },
     {
-      "path": "../rendermime-interfaces"
-    },
-    {
-      "path": "../services"
+      "path": "../vdom"
     }
   ]
 }
