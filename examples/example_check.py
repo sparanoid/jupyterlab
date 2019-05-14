@@ -32,9 +32,6 @@ class ExampleCheckApp(NotebookApp):
         """initialize tornado webapp and httpserver.
         """
         super().init_webapp()
-        test_name = osp.basename(self.example_dir)
-        self.log.info('*' * 40)
-        self.log.info(f'Starting test of {test_name}')
         mod_path = osp.abspath(osp.join(self.example_dir, 'main.py'))
         spec = importlib.util.spec_from_file_location("example", mod_path)
         mod = importlib.util.module_from_spec(spec)
@@ -49,7 +46,6 @@ class ExampleCheckApp(NotebookApp):
 
     def _browser_finished(self, future):
         try:
-            self.log.info('*' * 40)
             sys.exit(future.result())
         except Exception as e:
             self.log.error(str(e))
