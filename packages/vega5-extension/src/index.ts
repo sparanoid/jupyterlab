@@ -130,7 +130,7 @@ export const rendererFactory: IRenderMime.IRendererFactory = {
 const extension: IRenderMime.IExtension = {
   id: '@jupyterlab/vega5-extension:factory',
   rendererFactory,
-  rank: 50,
+  rank: 57,
   dataType: 'json',
   documentWidgetFactoryOptions: [
     {
