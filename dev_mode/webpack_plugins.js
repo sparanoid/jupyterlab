@@ -44,6 +44,11 @@ function maybeSync(localPath, name, rest) {
   });
 }
 
+/**
+ * A filter function used by all of the Jupyter ignore plugins.
+ * Set up to exclude all files that are not in a package
+ * contained by the Jupyterlab repo
+ */
 const ignored = path => {
   path = plib.resolve(path);
   if (path in ignoreCache) {
@@ -113,7 +118,8 @@ class JupyterIgnorePlugin extends webpack.IgnorePlugin {
 }
 
 /**
- * A helper class for the JupyterWatchIgnorePlugin
+ * A helper class for the JupyterWatchIgnorePlugin. This is a close copy of
+ * (the non-exported) webpack.IgnoringWatchFileSystem
  */
 class JupyterIgnoringWatchFileSystem {
   constructor(wfs) {
