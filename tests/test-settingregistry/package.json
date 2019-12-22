@@ -12,8 +12,8 @@
     "watch:src": "tsc -b --watch"
   },
   "dependencies": {
-    "@jupyterlab/coreutils": "^4.0.0-alpha.4",
     "@jupyterlab/settingregistry": "^2.0.0-alpha.4",
+    "@jupyterlab/statedb": "^2.0.0-alpha.4",
     "@jupyterlab/testutils": "^2.0.0-alpha.4",
     "@lumino/coreutils": "^1.4.0",
     "chai": "^4.2.0",

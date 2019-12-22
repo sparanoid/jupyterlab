@@ -13,10 +13,10 @@
   ],
   "references": [
     {
-      "path": "../../packages/coreutils"
+      "path": "../../packages/settingregistry"
     },
     {
-      "path": "../../packages/settingregistry"
+      "path": "../../packages/statedb"
     },
     {
       "path": "../../testutils"
