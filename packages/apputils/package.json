@@ -2,6 +2,11 @@
   "name": "@jupyterlab/apputils",
   "version": "3.0.0-alpha.7",
   "description": "JupyterLab - Application Utilities",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension"
+  ],
   "homepage": "https://github.com/jupyterlab/jupyterlab",
   "bugs": {
     "url": "https://github.com/jupyterlab/jupyterlab/issues"
