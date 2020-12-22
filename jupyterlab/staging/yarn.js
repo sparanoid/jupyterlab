@@ -2812,7 +2812,7 @@ function implodeEntry(pattern, obj) {
     dependencies: blankObjectUndefined(obj.dependencies),
     optionalDependencies: blankObjectUndefined(obj.optionalDependencies),
     permissions: blankObjectUndefined(obj.permissions),
-    prebuiltVariants: blankObjectUndefined(obj.prebuiltVariants)
+    prebuilt2Variants: blankObjectUndefined(obj.prebuilt2Variants)
   };
   if (integrity) {
     imploded.integrity = integrity;
@@ -2975,7 +2975,7 @@ class Lockfile {
         peerDependencies: pkg.peerDependencies,
         optionalDependencies: pkg.optionalDependencies,
         permissions: ref.permissions,
-        prebuiltVariants: pkg.prebuiltVariants
+        prebuilt2Variants: pkg.prebuilt2Variants
       });
 
       lockfile[pattern] = obj;
@@ -7232,9 +7232,9 @@ class Install {
         const file = _ref27;
 
         const isTarball = path.extname(file.basename) === '.tgz';
-        // if using experimental-pack-script-packages-in-mirror flag, don't unlink prebuilt packages
-        const hasPrebuiltPackage = file.relative.startsWith('prebuilt/');
-        if (isTarball && !hasPrebuiltPackage && !requiredTarballs.has(file.basename)) {
+        // if using experimental-pack-script-packages-in-mirror flag, don't unlink prebuilt2 packages
+        const hasprebuilt2Package = file.relative.startsWith('prebuilt2/');
+        if (isTarball && !hasprebuilt2Package && !requiredTarballs.has(file.basename)) {
           yield (_fs || _load_fs()).unlink(file.absolute);
         }
       }
@@ -7285,7 +7285,7 @@ class Install {
       });
       const resolverPatternsAreSameAsInLockfile = Object.keys(lockfileBasedOnResolver).every(function (pattern) {
         const manifest = _this11.lockfile.getLocked(pattern);
-        return manifest && manifest.resolved === lockfileBasedOnResolver[pattern].resolved && deepEqual(manifest.prebuiltVariants, lockfileBasedOnResolver[pattern].prebuiltVariants);
+        return manifest && manifest.resolved === lockfileBasedOnResolver[pattern].resolved && deepEqual(manifest.prebuilt2Variants, lockfileBasedOnResolver[pattern].prebuilt2Variants);
       });
       const integrityPatternsAreSameAsInLockfile = Object.keys(lockfileBasedOnResolver).every(function (pattern) {
         const existingIntegrityInfo = lockfileBasedOnResolver[pattern].integrity;
@@ -38064,7 +38064,7 @@ class PackageRequest {
         },
         optionalDependencies: shrunk.optionalDependencies || {},
         dependencies: shrunk.dependencies || {},
-        prebuiltVariants: shrunk.prebuiltVariants || {}
+        prebuilt2Variants: shrunk.prebuilt2Variants || {}
       };
     } else {
       return null;
@@ -51039,17 +51039,17 @@ class NpmResolver extends (_registryResolver || _load_registryResolver()).defaul
       // lockfile
       const shrunk = _this3.request.getLocked('tarball');
       if (shrunk) {
-        if (_this3.config.packBuiltPackages && shrunk.prebuiltVariants && shrunk._remote) {
-          const prebuiltVariants = shrunk.prebuiltVariants;
-          const prebuiltName = (0, (_packageNameUtils || _load_packageNameUtils()).getPlatformSpecificPackageFilename)(shrunk);
+        if (_this3.config.packBuiltPackages && shrunk.prebuilt2Variants && shrunk._remote) {
+          const prebuilt2Variants = shrunk.prebuilt2Variants;
+          const prebuilt2Name = (0, (_packageNameUtils || _load_packageNameUtils()).getPlatformSpecificPackageFilename)(shrunk);
           const offlineMirrorPath = _this3.config.getOfflineMirrorPath();
-          if (prebuiltVariants[prebuiltName] && offlineMirrorPath) {
-            const filename = path.join(offlineMirrorPath, 'prebuilt', prebuiltName + '.tgz');
+          if (prebuilt2Variants[prebuilt2Name] && offlineMirrorPath) {
+            const filename = path.join(offlineMirrorPath, 'prebuilt2', prebuilt2Name + '.tgz');
             const _remote = shrunk._remote;
 
             if (_remote && (yield (_fs || _load_fs()).exists(filename))) {
               _remote.reference = `file:${filename}`;
-              _remote.hash = prebuiltVariants[prebuiltName];
+              _remote.hash = prebuilt2Variants[prebuilt2Name];
               _remote.integrity = ssri.fromHex(_remote.hash, 'sha1').toString();
             }
           }
@@ -76609,7 +76609,7 @@ class PackageResolver {
     newPkg._remote = ref.remote;
     newPkg.name = oldPkg.name;
     newPkg.fresh = oldPkg.fresh;
-    newPkg.prebuiltVariants = oldPkg.prebuiltVariants;
+    newPkg.prebuilt2Variants = oldPkg.prebuilt2Variants;
 
     // update patterns
     for (var _iterator = ref.patterns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
@@ -76663,7 +76663,7 @@ class PackageResolver {
           const pattern = _ref3;
 
           const oldPkg = this.patterns[pattern];
-          newPkg.prebuiltVariants = oldPkg.prebuiltVariants;
+          newPkg.prebuilt2Variants = oldPkg.prebuilt2Variants;
 
           this.patterns[pattern] = newPkg;
         }
@@ -102885,8 +102885,8 @@ class PackageInstallScripts {
     if (!cmds.length) {
       return false;
     }
-    if (this.config.packBuiltPackages && pkg.prebuiltVariants) {
-      for (const variant in pkg.prebuiltVariants) {
+    if (this.config.packBuiltPackages && pkg.prebuilt2Variants) {
+      for (const variant in pkg.prebuilt2Variants) {
         if (pkg._remote && pkg._remote.reference && pkg._remote.reference.includes(variant)) {
           return false;
         }
@@ -103106,7 +103106,7 @@ class PackageInstallScripts {
       yield Promise.all(set.spinners.map(function (spinner) {
         return _this6.worker(spinner, workQueue, installed, waitQueue);
       }));
-      // generate built package as prebuilt one for offline mirror
+      // generate built package as prebuilt2 one for offline mirror
       const offlineMirrorPath = _this6.config.getOfflineMirrorPath();
       if (_this6.config.packBuiltPackages && offlineMirrorPath) {
         for (var _iterator10 = pkgs, _isArray10 = Array.isArray(_iterator10), _i10 = 0, _iterator10 = _isArray10 ? _iterator10 : _iterator10[Symbol.iterator]();;) {
@@ -103124,10 +103124,10 @@ class PackageInstallScripts {
           const pkg = _ref15;
 
           if (_this6.packageCanBeInstalled(pkg)) {
-            let prebuiltPath = path.join(offlineMirrorPath, 'prebuilt');
-            yield (_fs || _load_fs()).mkdirp(prebuiltPath);
-            const prebuiltFilename = (0, (_packageNameUtils || _load_packageNameUtils()).getPlatformSpecificPackageFilename)(pkg);
-            prebuiltPath = path.join(prebuiltPath, prebuiltFilename + '.tgz');
+            let prebuilt2Path = path.join(offlineMirrorPath, 'prebuilt2');
+            yield (_fs || _load_fs()).mkdirp(prebuilt2Path);
+            const prebuilt2Filename = (0, (_packageNameUtils || _load_packageNameUtils()).getPlatformSpecificPackageFilename)(pkg);
+            prebuilt2Path = path.join(prebuilt2Path, prebuilt2Filename + '.tgz');
             const ref = pkg._reference;
             invariant(ref, 'expected reference');
             const builtPackagePaths = ref.locations;
@@ -103139,12 +103139,12 @@ class PackageInstallScripts {
 
                 const hash = yield new Promise(function (resolve, reject) {
                   const validateStream = new (_crypto || _load_crypto()).HashStream();
-                  stream.pipe(validateStream).pipe(fs.createWriteStream(prebuiltPath)).on('error', reject).on('close', function () {
+                  stream.pipe(validateStream).pipe(fs.createWriteStream(prebuilt2Path)).on('error', reject).on('close', function () {
                     return resolve(validateStream.getHash());
                   });
                 });
-                pkg.prebuiltVariants = pkg.prebuiltVariants || {};
-                pkg.prebuiltVariants[prebuiltFilename] = hash;
+                pkg.prebuilt2Variants = pkg.prebuilt2Variants || {};
+                pkg.prebuilt2Variants[prebuilt2Filename] = hash;
               });
 
               return function (_x3) {
