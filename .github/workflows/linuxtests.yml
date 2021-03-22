@@ -50,6 +50,9 @@ jobs:
         with:
           node-version: '12.x'
 
+      - name: Setup firefox
+        uses: browser-actions/setup-firefox@latest
+
       - name: Cache pip on Linux
         uses: actions/cache@v2
         if: startsWith(runner.os, 'Linux')
@@ -89,6 +92,7 @@ jobs:
       - name: Run test ${{ matrix.group }}
         env:
           GROUP: ${{ matrix.group }}
+          JLAB_BROWSER_TYPE: firefox
         run: |
           bash ./scripts/ci_script.sh
 
